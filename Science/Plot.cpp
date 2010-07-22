@@ -56,14 +56,11 @@ bool Plot::RenderInEmptyTexture(EmptyTextureResourcePtr tex) {
             float dy = (yp - yaxe[0]) / (yaxe[1] - yaxe[0]);
 
             unsigned int y = h*dy;
-            unsigned int zero = 0;
-            //y = min(max(y,zero),h);
-            if (y >= 0 && y < h) {
+            if (y < h) {            
                 (*tex)(x,y,0) = 255*set->GetColor()[0];
                 (*tex)(x,y,1) = 255*set->GetColor()[1];
                 (*tex)(x,y,2) = 255*set->GetColor()[2];
             }
-
         }
     }
 
