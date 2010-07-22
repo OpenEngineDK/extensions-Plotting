@@ -11,9 +11,13 @@
 #ifndef _OE_I_DATA_SET_H_
 #define _OE_I_DATA_SET_H_
 
+#include <Math/Vector.h>
 
 namespace OpenEngine {
 namespace Science {
+
+using namespace Math;
+
 /**
  * Short description.
  *

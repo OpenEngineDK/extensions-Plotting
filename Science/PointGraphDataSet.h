@@ -12,6 +12,7 @@
 #define _OE_POINT_GRAPH_DATA_SET_H_
 
 #include "IDataSet.h"
+#include <vector>
 
 namespace OpenEngine {
 namespace Science {
@@ -23,8 +24,14 @@ namespace Science {
 class PointGraphDataSet : public IDataSet {
 private:
 
+    unsigned int resolution;
+    std::vector<float>* data;
+    float sx,ex;
 public:
-    
+    PointGraphDataSet(unsigned int resolution, float sx, float ex); 
+    virtual ~PointGraphDataSet();
+    float ValueAtPoint(float x);
+    void SetValue(float x, float y);
 };
 
 } // NS Science

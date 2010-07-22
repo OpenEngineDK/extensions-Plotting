@@ -1,5 +1,8 @@
 #include "Plot.h"
 #include <Logging/Logger.h>
+#include "IDataSet.h"
+#include <algorithm>
+
 
 namespace OpenEngine {
 namespace Science {
@@ -14,6 +17,10 @@ Plot::Plot(Vector<2,float> xaxe, Vector<2,float> yaxe)
     
 }
 
+void Plot::AddDataSet(IDataSet* s) {
+    datasets.push_back(s);
+}
+
 bool Plot::RenderInEmptyTexture(EmptyTextureResourcePtr tex) {
     unsigned int w = tex->GetWidth();
     unsigned int h = tex->GetHeight();
@@ -23,16 +30,49 @@ bool Plot::RenderInEmptyTexture(EmptyTextureResourcePtr tex) {
         return false;
     }
 
-    for (int x=0;x<w;x++) {
-        for (int y=0;y<h;y++) {
-            
-            (*tex)(x,y,0) = x;
-            (*tex)(x,y,1) = y;
-            (*tex)(x,y,2) = 0;
-
+    for (unsigned int x=0;x<w;x++) {
+        for (unsigned int y=0;y<h;y++) {
+            (*tex)(x,y,0) = 255;
+            (*tex)(x,y,1) = 255;
+            (*tex)(x,y,2) = 255;
         }
     }
 
+
+    for (unsigned int x=0;x<w;x++) {        
+        // create a index between 0 and 1
+        float dx = x/float(w);
+
+        // compute which point on the axies are here
+        float xp = xaxe[0] + dx*(xaxe[1] - xaxe[0]);
+
+        for (list<IDataSet*>::iterator itr = datasets.begin();
+             itr != datasets.end();
+             itr++) {
+            IDataSet* set = *itr;
+
+            float yp = set->ValueAtPoint(xp);
+
+            float dy = (yp - yaxe[0]) / (yaxe[1] - yaxe[0]);
+
+            unsigned int y = h*dy;
+            unsigned int zero = 0;
+            //y = min(max(y,zero),h);
+            if (y >= 0 && y < h) {            
+                (*tex)(x,y,0) = 0;
+                (*tex)(x,y,1) = 0;
+                (*tex)(x,y,2) = 0;
+            }
+
+        }
+            
+            
+        // (*tex)(x,y,0) = dx*255;
+        // (*tex)(x,y,1) = dy*255;
+        // (*tex)(x,y,2) = 0;
+    }
+
+    return true;
 }
 
 }

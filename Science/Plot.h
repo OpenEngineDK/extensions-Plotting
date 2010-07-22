@@ -31,7 +31,7 @@ class IDataSet;
  */
 class Plot {
 private:
-    std::vector<IDataSet*> datasets;
+    std::list<IDataSet*> datasets;
     
     Vector<2,float> xaxe;
     Vector<2,float> yaxe;
@@ -39,6 +39,7 @@ public:
     Plot(Vector<2,float> xaxe, Vector<2,float> yaxe);
     
     bool RenderInEmptyTexture(EmptyTextureResourcePtr tex);
+    void AddDataSet(IDataSet*);
 };
 
 } // NS Science
