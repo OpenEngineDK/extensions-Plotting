@@ -58,18 +58,13 @@ bool Plot::RenderInEmptyTexture(EmptyTextureResourcePtr tex) {
             unsigned int y = h*dy;
             unsigned int zero = 0;
             //y = min(max(y,zero),h);
-            if (y >= 0 && y < h) {            
-                (*tex)(x,y,0) = 0;
-                (*tex)(x,y,1) = 0;
-                (*tex)(x,y,2) = 0;
+            if (y >= 0 && y < h) {
+                (*tex)(x,y,0) = 255*set->GetColor()[0];
+                (*tex)(x,y,1) = 255*set->GetColor()[1];
+                (*tex)(x,y,2) = 255*set->GetColor()[2];
             }
 
         }
-            
-            
-        // (*tex)(x,y,0) = dx*255;
-        // (*tex)(x,y,1) = dy*255;
-        // (*tex)(x,y,2) = 0;
     }
 
     return true;

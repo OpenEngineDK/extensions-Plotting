@@ -29,7 +29,7 @@ private:
 public:
     IDataSet() : color(1,0,0) {}
     Vector<3,float> GetColor() { return color; }
-
+    void SetColor(Vector<3,float> v) { color = v; }
 
     virtual float ValueAtPoint(float x) =0;
 };
