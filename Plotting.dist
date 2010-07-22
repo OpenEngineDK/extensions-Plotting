@@ -1,0 +1,3 @@
+# dist file for Plotting
+darcs      /extensions/Plotting            http://openengine.dk/code/extensions/Plotting
+darcs-dev  /extensions/Plotting            fh.daimi.au.dk:/users/cgd/code/extensions/Plotting
